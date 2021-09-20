@@ -3,10 +3,15 @@
 <h1><%= @property.title%></h1>
 
 <%= @property.description%>
+<br>
 Quartos: <%= @property.rooms%>
+<br>
 Banheiros: <%= @property.bathrooms %>
+<br>
 Estacionamento: <%= @property.parking_slot ? 'Sim' : 'Nao'%>
+<br>
 Aceita Pets: <%= @property.pets ? 'Sim' : 'Nao'%>
+<br>
 Diária: R$ <%= @property.daily_rate%>
 
 

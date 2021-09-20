@@ -1,11 +1,7 @@
 <h1> Flats</h1>
 <h3> Boas vindas ao sistema de locação de apartamentos </h3>
 
-<% @properties.each do |i| %>
-<%= i.title%>
-<%= i.description%>
-Quartos: <%= i.rooms%>
-<%end%>
+
 
 
 <%if @properties.empty? %> 
@@ -14,5 +10,8 @@ Quartos: <%= i.rooms%>
     <%='Imoveis disponiveis:'%>    
     <% @properties.each do |property| %> 
     <%= link_to property.title, property%>
+    <! link_to(property.title, property_path(property.id)) >
+    <%= property.description%>
+    Quartos: <%= property.rooms%>
     <% end %> 
 <% end %> 
