@@ -5,13 +5,18 @@
 
 
 <%if @properties.empty? %> 
-    <%='Nenhum imóvel disponível'%>
+   <p> <%='Nenhum imóvel disponível'%></p>
 <%else%> 
-    <%='Imoveis disponiveis:'%>    
+     <p><%='Imoveis disponiveis:'%>  </p>
+    <br>   
     <% @properties.each do |property| %> 
     <%= link_to property.title, property%>
-    <! link_to(property.title, property_path(property.id)) >
-    <%= property.description%>
+    <br>
+    
+    Descrição <%= property.description%>
     Quartos: <%= property.rooms%>
     <% end %> 
 <% end %> 
+
+
+<!Alternativa: link_to(property.title, property_path(property.id)) >
