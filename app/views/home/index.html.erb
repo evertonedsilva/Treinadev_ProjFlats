@@ -1,23 +1,32 @@
+<header>
+
 <h1> Flats</h1>
 <h3> Boas vindas ao sistema de locação de apartamentos </h3>
 
+</header>
 
+<aside>
+
+</aside>
 
 
 <%if @properties.empty? %> 
    <p> <%='Nenhum imóvel disponível'%></p>
 <%else%> 
-     <p><%='Imoveis disponiveis:'%>  </p>  
-    <% @properties.each do |property| %> 
-    <%= link_to property.title, property%><!*>
-    <br>
+   <p><%='Imoveis disponiveis:'%>  </p>  
+   <% @properties.each do |property| %>     
+       <%= link_to property.title, property%><!*>
+       
+      <br>
     
-    Descrição <%= property.description%>
-    Quartos: <%= property.rooms%>
-    <br>
-    <br>
-    <% end %> 
+      Descrição: <%= property.description%>
+      , Quartos: <%= property.rooms%>
+      <br> 
+      <br>   
+    <% end %>     
 <% end %> 
+<br>
+<br>
 <br>
 
 

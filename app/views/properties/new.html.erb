@@ -1,5 +1,15 @@
 <h1>Cadastro de Imóvel</h1>
-<%= form_with(model: @property) do |f| %>
+
+<% if @property.errors.any? %>
+  <ul>
+  <% @property.errors.full_messages.each do |e|%>
+   <li><%= e %>
+   <%end%>
+  </ul>
+<%end%>
+
+
+<%=form_with model: @property do |f| %>
   <div>
     <%= f.label :title, 'Título' %>
     <%= f.text_field :title %>
@@ -20,7 +30,13 @@
     <%= f.label :daily_rate, 'Diária' %>
     <%= f.text_field :daily_rate %>
   </div>
+
   <div>
+  <%= f.label :property_type_id, "Tipo" %>
+  <%= f.collection_select :property_type_id, PropertyType.all, :id, :name, prompt: 'Escolha um tipo' %>
+  </div>
+
+   <div>
     <%= f.check_box :pets %>
     <%= f.label :pets, 'Aceita Pets' %>
   </div>

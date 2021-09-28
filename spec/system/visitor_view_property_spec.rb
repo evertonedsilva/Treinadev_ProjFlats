@@ -3,14 +3,17 @@ require 'rails_helper'
 describe 'Visitor visit homepage' do
   it 'and view properties' do
     #Arrange => Preparar (os dados)
-    Property.create({ title: 'Casa com quintal em Copacabana', 
+    tipo = PropertyType.create!(name:'Casa')
+    Property.create!({ title: 'Casa com quintal em Copacabana', 
                       description: 'Excelente casa, recém reformada com 2 vagas de garagem',
-                      rooms: 3, parking_slot: true
+                      rooms: 3, parking_slot: true, bathrooms: 2, pets: true, daily_rate: 500,
+                      property_type: tipo
                     })
 
-    Property.create({ title: 'Cobertura em Manaus', 
+    Property.create!({ title: 'Cobertura em Manaus', 
                       description: 'Cobertura de 300m2, churrasqueira e sauna privativa',
-                      rooms: 5, parking_slot: false
+                      rooms: 5, parking_slot: false, bathrooms: 2, pets: false, daily_rate: 200,
+                      property_type: tipo
                     })
 
     #Act => Agir (executar a funcionalidade)
@@ -33,10 +36,20 @@ describe 'Visitor visit homepage' do
 
   it 'and view property details' do
     #Arrange => Preparar (os dados)
-    Property.create({ title: 'Casa com quintal em Copacabana', 
-                      description: 'Excelente casa, recém reformada com 2 vagas de garagem',
-                      rooms: 3, parking_slot: true, bathrooms: 2, pets: true, daily_rate: 500
-                    })
+    tipo= PropertyType.create!(name:'Casa')
+
+    Property.create!({ title: 'Casa com quintal em Copacabana', 
+      description: 'Excelente casa, recém reformada com 2 vagas de garagem',
+      rooms: 3, parking_slot: true, bathrooms: 2, pets: true, daily_rate: 500,
+      property_type: tipo
+    })
+
+    Property.create!({ title: 'Cobertura em Manaus', 
+      description: 'Cobertura de 300m2, churrasqueira e sauna privativa',
+      rooms: 5, parking_slot: false, bathrooms: 2, pets: false, daily_rate: 200,
+      property_type: tipo
+    })
+                    
 
     visit root_path
     click_on 'Casa com quintal em Copacabana'
@@ -48,6 +61,7 @@ describe 'Visitor visit homepage' do
     expect(page).to have_content("Aceita Pets: Sim")
     expect(page).to have_content("Estacionamento: Sim")
     expect(page).to have_content("Diária: R$ 500")
+    expect(page).to have_content("Tipo: Casa")
 
     end
 

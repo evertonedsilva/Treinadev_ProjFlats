@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'Visitor register property' do
     it 'sucessfully' do
         #arrange
+        PropertyType.create!(name: 'Casa')
 
         #act
         visit root_path
@@ -13,6 +14,7 @@ describe 'Visitor register property' do
         fill_in 'Quartos', with: 3
         fill_in 'Banheiros', with: '2'
         fill_in 'Diária', with: 200
+        select 'Casa', from: 'Tipo'
         check 'Aceita Pets'
         check 'Estacionamento'
         click_on 'Enviar'
@@ -25,6 +27,42 @@ describe 'Visitor register property' do
         expect(page).to have_content("Aceita Pets: Sim")
         expect(page).to have_content("Estacionamento: Sim")
         expect(page).to have_content("Diária: R$ 200,00")
+        expect(page).to have_content("Tipo: Casa")
     end
+    
+    it 'and must fill all fields' do
+        #Teste de erro de preenchimento:
+
+        #arrange
+        PropertyType.create!(name: 'Casa')
+
+        #act
+        visit root_path
+        click_on "Cadastrar Imóvel"
+        
+        
+        #fill_in 'Título', with: 'Casa em Florianópolis'
+        #fill_in 'Descrição', with: 'Ótima casa perto da UFSC'
+        #fill_in 'Quartos', with: 3
+        #fill_in 'Banheiros', with: '2'
+        #fill_in 'Diária', with: 200
+        #check 'Aceita Pets'
+        #check 'Estacionamento'
+        click_on 'Enviar'
+
+        #expect(page).to have_content('Título não pode ficar em branco')
+        #expect(page).to have_content('Descrição não pode ficar em branco')
+        #expect(page).to have_content('Quartos não pode ficar em branco')
+        #expect(page).to have_content('Banheiro não pode ficar em branco')
+        #expect(page).to have_content('Diária não pode ficar em branco')
+        expect(page).to have_content('não pode ficar em branco',count: 5)
+        expect(Property.count).to eq(0)
+
+        # TODO verificar que o daily_rate e bathrooms são numeros
+        # TODO verificar que o daily_rate e bathrooms são maiores que zero
+        # *rails notes -> retorna de todos os códigos onde esta escrito TODO
+    end 
+
+
 end
 
