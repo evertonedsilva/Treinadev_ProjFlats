@@ -11,7 +11,9 @@
 
 <%=form_with model: @property do |f| %>
   <div>
-    <%= f.label :title, 'Título' %>
+    <!--<%= f.label :title, 'Título' %> 
+    caso naõ tivesse o property.pt-BR traduzindo:title-->
+    <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
   <div>

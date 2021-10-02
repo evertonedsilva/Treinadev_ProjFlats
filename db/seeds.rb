@@ -11,3 +11,5 @@ Property.create!({ title: 'Cobertura em Manaus',
                   rooms: 5, parking_slot: false, bathrooms: 2, daily_rate: 150,
                   property_type: apartamento
                 })
+
+PropertyOwner.create!(email: '123@doe.com.br', password: '123')

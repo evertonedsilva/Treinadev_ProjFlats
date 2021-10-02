@@ -4,8 +4,13 @@ describe 'Visitor register property' do
     it 'sucessfully' do
         #arrange
         PropertyType.create!(name: 'Casa')
+        property_owner = PropertyOwner
+        .create!(email: 'jane@doe.com.br', password: '123456789') #adicionado na aula de Login
+
+        
 
         #act
+        login_as property_owner, scope: :property_owner
         visit root_path
         click_on "Cadastrar Imóvel"
         
@@ -35,8 +40,11 @@ describe 'Visitor register property' do
 
         #arrange
         PropertyType.create!(name: 'Casa')
+        property_owner = PropertyOwner
+        .create!(email: 'jane@doe.com.br', password: '123456789') #adicionado na aula de Login
 
         #act
+        login_as property_owner, scope: :property_owner
         visit root_path
         click_on "Cadastrar Imóvel"
         
@@ -50,17 +58,17 @@ describe 'Visitor register property' do
         #check 'Estacionamento'
         click_on 'Enviar'
 
-        #expect(page).to have_content('Título não pode ficar em branco')
-        #expect(page).to have_content('Descrição não pode ficar em branco')
-        #expect(page).to have_content('Quartos não pode ficar em branco')
-        #expect(page).to have_content('Banheiro não pode ficar em branco')
-        #expect(page).to have_content('Diária não pode ficar em branco')
-        expect(page).to have_content('não pode ficar em branco',count: 5)
+        expect(page).to have_content('Título não pode ficar em branco')
+        expect(page).to have_content('Descrição não pode ficar em branco')
+        expect(page).to have_content('Quartos não pode ficar em branco')
+        expect(page).to have_content('Banheiros não pode ficar em branco')
+        expect(page).to have_content('Diária não pode ficar em branco')
+        #expect(page).to have_content('não pode ficar em branco',count: 5)
         expect(Property.count).to eq(0)
 
         # TODO verificar que o daily_rate e bathrooms são numeros
         # TODO verificar que o daily_rate e bathrooms são maiores que zero
-        # *rails notes -> retorna de todos os códigos onde esta escrito TODO
+        # DICA: > rails notes # retorna de todos os códigos onde esta escrito TODO
     end 
 
 
