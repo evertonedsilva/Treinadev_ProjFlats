@@ -1,11 +1,19 @@
 require 'rails_helper'
 
 describe 'Visitor register property' do
+    it 'must be signed in' do
+        #não pode cadastrar se não estiver logado
+        #esse teste não é o suficiente (apenas esconder o link do navegador)!!
+        #act
+        visit root_path
+        #assert
+        expect(page).to_not have_link('Cadastrar Imóvel')        
+    
+    end
     it 'sucessfully' do
         #arrange
         PropertyType.create!(name: 'Casa')
-        property_owner = PropertyOwner
-        .create!(email: 'jane@doe.com.br', password: '123456789') #adicionado na aula de Login
+        property_owner = PropertyOwner.create!(email: 'jani@doe.com.br', password: '123456789') #adicionado na aula de Login
 
         
 
@@ -41,7 +49,7 @@ describe 'Visitor register property' do
         #arrange
         PropertyType.create!(name: 'Casa')
         property_owner = PropertyOwner
-        .create!(email: 'jane@doe.com.br', password: '123456789') #adicionado na aula de Login
+        .create!(email: 'jani@doe.com.br', password: '123456789') #adicionado na aula de Login
 
         #act
         login_as property_owner, scope: :property_owner
@@ -70,6 +78,7 @@ describe 'Visitor register property' do
         # TODO verificar que o daily_rate e bathrooms são maiores que zero
         # DICA: > rails notes # retorna de todos os códigos onde esta escrito TODO
     end 
+
 
 
 end

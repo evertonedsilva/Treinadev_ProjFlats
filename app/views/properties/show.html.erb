@@ -17,7 +17,25 @@ Aceita Pets: <%= @property.pets ? 'Sim' : 'Nao'%>
 caso não tivesse a tradução do I18n-->
 Diária: <%= number_to_currency(@property.daily_rate)%>
 
-<br>
+
+<h3>Verificar datas</h3>
+<%= form_with model: [@property, @property_reservation] do |f| %>
+  <%= f.label :start_date, 'Data de início' %>
+  <%= f.date_field :start_date %>
+  <%= f.label :end_date, 'Data de término' %>
+  <%= f.date_field :end_date %>
+  <%= f.label :guests, 'Quantidade de pessoas' %>
+  <%= f.number_field :guests, step: 1, min: 1 %>
+  <%= f.submit 'Enviar Reserva' %>
+<% end %> 
+
+
+    
+
+
+
+
+<br>Imóvel de:<%= @property.property_owner.email %>
 <br>
 
 <%= link_to "Voltar", root_path%>

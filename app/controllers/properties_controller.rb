@@ -1,6 +1,10 @@
 class PropertiesController < ApplicationController
+    before_action :authenticate_property_owner!, only: [:new, :create]
+    
+    # não use bloquio automático (usando o except ao invés do only)
     def show
         @property = Property.find(params[:id])
+        @property_reservation = PropertyReservation.new 
     end
 
     def new
@@ -10,6 +14,7 @@ class PropertiesController < ApplicationController
     def create
         
         @property = Property.new(property_params)
+        @property.property_owner=current_property_owner
 
         if @property.save
             redirect_to @property
@@ -23,8 +28,11 @@ class PropertiesController < ApplicationController
         #               rooms: params[:property][:rooms], bathrooms: params[:property][:bathrooms],
         #               daily_rate: params[:property][:daily_rate], pets: params[:property][:pets],
         #               parking_slot: params[:property][:parking_slot])
+    
+    end
 
-        
+    def my_properties
+        @properties = current_property_owner.properties
         
     end
 
@@ -36,6 +44,7 @@ class PropertiesController < ApplicationController
         params.require(:property).permit(
             :title, :description, :rooms, :bathrooms, :pets, 
             :parking_slot, :daily_rate, :property_type_id)
+        
     end
         
 end

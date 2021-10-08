@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Visitor log in' do
   context 'as property owner' do
     it 'successfully' do
-        property_owner = PropertyOwner.create!(email: 'jane@doe.com.br', password: '123456789')
+        property_owner = PropertyOwner.create!(email: 'jani@doe.com.br', password: '123456789')
         
 
         visit root_path
@@ -22,7 +22,7 @@ describe 'Visitor log in' do
         expect(page).not_to have_link('Entrar')
     end
     it 'and logs out' do
-        property_owner = PropertyOwner.create!(email: 'jane@doe.com.br', password: '123456789')
+        property_owner = PropertyOwner.create!(email: 'jani@doe.com.br', password: '123456789')
 
         login_as property_owner, scope: :property_owner
         visit root_path
