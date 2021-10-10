@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Visitorfilter properties by type' do
+describe 'Visitor filter properties by type' do
     it 'show view links on nav bar' do
         #Arrange
         PropertyType.create!(name: 'Apartamento')

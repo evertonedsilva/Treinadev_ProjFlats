@@ -7,7 +7,7 @@ describe 'Visitor log in' do
         
 
         visit root_path
-        click_on 'Entrar'
+        click_on 'Entrar como proprietário'
         fill_in 'Email', with: property_owner .email
         fill_in 'Senha', with: property_owner .password
         #tem dois Entrar na tela: um para fazer 
