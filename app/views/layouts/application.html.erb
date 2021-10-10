@@ -10,24 +10,32 @@
   </head>
 
   <body>
-    <nav>
-      <% if property_owner_signed_in? %>
-        <ul>
-          <li><%= link_to 'Meus Imóveis', my_properties_properties_path %></li>
-          <li><%= link_to 'Cadastrar Imóvel', new_property_path %></li>
-          <li><%= current_property_owner.email %></li>
-          <li><%= link_to 'Logout', destroy_property_owner_session_path, method: :delete %></li>
-        </ul>
+
+
+
+ <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+  
+
+    <% if property_owner_signed_in? %>  
+            
+          <a class="nav-link"><%= link_to 'Meus Imóveis', my_properties_properties_path %></a>
+          <a class="nav-link"><%= link_to 'Cadastrar Imóvel', new_property_path %></a>     
+          <a class="nav-link"><%= 'Você esta logado como: '+ current_property_owner.email %></a>
+          <a class="nav-link"><%= link_to 'Logout', destroy_property_owner_session_path, method: :delete %></a>
+        
       <% elsif user_signed_in? %>
-        <ul>
-          <li><%= link_to current_user.email, my_profile_path %></li> 
-          <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
-        </ul>
-      <% else %>
-        <p><%= link_to 'Entrar como proprietário', new_property_owner_session_path %></p>
-        <p><%= link_to 'Entrar como locador', new_user_session_path %></p>
-      <% end %>
-    </nav>
+        
+          <a class="nav-link active"> <%= link_to current_user.email, my_profile_path %></a>
+          <a class="nav-link active"> <%= link_to 'Logout', destroy_user_session_path, method: :delete %></a>
+        
+      <% else %>     
+          <span class="navbar-text mx-3"> Faça seu login para reservar ou cadastrar seu imóvel ! </span>  
+          <a class="nav-link"><%= link_to 'Entrar como locador', new_user_session_path %></a>
+          <a class="nav-link"><%= link_to 'Entrar como proprietário', new_property_owner_session_path %></a>
+
+      <% end %>     
+         
+  </nav>    
     <p><%= notice %></p>
     <p><%= alert %></p>
     <%= yield %>

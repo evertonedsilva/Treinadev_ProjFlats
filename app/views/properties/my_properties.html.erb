@@ -1,7 +1,10 @@
 <h1>Meus Imóveis </h1>
+<br>
 <% @properties.each do |p|%>
 <%= link_to(p.title, p)%>
-
+<br>
 <%=p.description%>
+<br>
 Quartos: <%=p.rooms%>
+<br>
 <%end%>

@@ -18,29 +18,34 @@ caso não tivesse a tradução do I18n-->
 Diária: <%= number_to_currency(@property.daily_rate)%>
 <br>
 Imóvel de:<%= @property.property_owner.email %>
+<br>
+<br>
 
 
   <% if property_owner_signed_in? && @property.property_owner == current_property_owner %>
-    <h3>Reservas</h3>
-    <% @property.property_reservations.each do |pr| %>
-      <div>
-        <h4>Reserva de <%= pr.user.email %></h4>
-        <dl>
-          <dt>Data de Início:</dt>
-          <dd><%= I18n.l(pr.start_date) %></dd>
-          <dt>Data de Saída:</dt>
-          <dd><%= I18n.l(pr.end_date) %></dd>
-          <dt>Total de Pessoas:</dt>
-          <dd><%= pr.guests %></dd>
-          <dt>Status:</dt>
-          <dd><%= I18n.t(pr.status) %></dd>
-        </dl>
+      <h3>Reservas</h3>
+      <%if @property.property_reservations.empty? %> 
+          <h5>Você não possui reservas para esse imóvel</h5>
+      <%else%> 
+          <% @property.property_reservations.each do |pr| %>
+          <div>
+            <h4>Reserva de <%= pr.user.email %></h4>
+            <dl>
+              <dt>Data de Início:</dt>
+              <dd><%= I18n.l(pr.start_date) %></dd>
+              <dt>Data de Saída:</dt>
+              <dd><%= I18n.l(pr.end_date) %></dd>
+              <dt>Total de Pessoas:</dt>
+              <dd><%= pr.guests %></dd>
+              <dt>Status:</dt>
+              <dd><%= I18n.t(pr.status) %></dd>
+            </dl>
         
-        <%= link_to 'Aceitar Reserva', accept_property_reservation_path(pr.id), method: :post %>
+            <%= link_to 'Aceitar Reserva', accept_property_reservation_path(pr.id), method: :post %>
                                                                       <!--por default method :get -->
-
-      </div>
-    <% end %>
+          </div>
+          <% end %>
+      <% end %>
     
   <% elsif user_signed_in? %>
     <h3>Reserve Agora</h3>
